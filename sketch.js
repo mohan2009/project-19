@@ -22,26 +22,23 @@ function setup() {
   human=createSprite(325,350)
   human.addImage(humanImage)
   human.scale=0.2
-   obstacleGroup = new Group
+  invisibleGround=createSprite(200,420,1000,20)
+  invisibleGround.visible=false
+  obstacleGroup = new Group
 }
 
 function draw() {
 if(gameState === PLAY){
-
-   
-    
     background.velocityX =-5
-    //scoring
     
-   
-    if(background.x>5){
+    if(background.x<0){
     background.x = background.width/2;
   }
-  background.velocityX=-5
+  
     
     obstacle()
     //jump when the space key is pressed
-    if(keyDown("space")&& trex.y >= 100) {
+    if(keyDown("space")&& human.y >= 100) {
         human.velocityY = -12;
       
     }
@@ -67,17 +64,20 @@ if(gameState === PLAY){
       human.velocityY = 0
       obstacleGroup.velocityX=0
  
-
+}
+ human.collide(invisibleGround)
   drawSprites();
  
   
 }
+
 function obstacle(){
   if(frameCount % 60 === 0) {
-    var rock=createSprite(400,300)
+    var rock=createSprite(400,400)
     rock.addImage( obstaceImage )
     rock.velocityX = -5
     rock.scale=0.1
      obstacleGroup.add(rock)
-     rock.debug=true
+    
    }
+ }
